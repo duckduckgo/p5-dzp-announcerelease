@@ -1,0 +1,8 @@
+Dist-Zilla-Plugin-AnnouncRelease*
+.build
+*.sw*
+*~
+*.bak
+*#
+.jshintrc
+.DS_Store
