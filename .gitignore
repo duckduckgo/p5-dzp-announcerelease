@@ -1,4 +1,4 @@
-Dist-Zilla-Plugin-AnnouncRelease*
+Dist-Zilla-Plugin-AnnounceRelease*
 .build
 *.sw*
 *~
