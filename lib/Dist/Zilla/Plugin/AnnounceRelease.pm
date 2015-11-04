@@ -15,6 +15,11 @@ has changelog => (
 	default => 'ia_changelog.yml'
 );
 
+has channel => (
+	is => 'ro',
+	default => 'DuckDuckHack'
+);
+
 sub after_release {
 	my ($self, $dist) = @_;
 
@@ -35,7 +40,7 @@ sub after_release {
 		$msg .= qq{<br />- <a href="https://duck.co/ia/view/$id">$id</a> was $status};
 	}
 
-	DDG::Util::Chat::send_chat_message('DuckDuckHack', $msg, 'dzil');
+	DDG::Util::Chat::send_chat_message($self->channel, $msg, 'dzil');
 }
 
 __PACKAGE__->meta->make_immutable;
