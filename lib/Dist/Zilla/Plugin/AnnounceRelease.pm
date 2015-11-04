@@ -5,7 +5,6 @@ use Moose;
 use namespace::autoclean;
 with 'Dist::Zilla::Role::AfterRelease';
 
-use DDG::Util::Chat 'send_chat_message';
 use Archive::Tar;
 use YAML::XS 'Load';
 
@@ -36,7 +35,7 @@ sub after_release {
 		$msg .= qq{<br />- <a href="https://duck.co/ia/view/$id">$id</a> was $status};
 	}
 
-	DDG::Util::Chat::send_chat_message('My Test', $msg, 'dzil');
+	DDG::Util::Chat::send_chat_message('DuckDuckHack', $msg, 'dzil');
 }
 
 __PACKAGE__->meta->make_immutable;
