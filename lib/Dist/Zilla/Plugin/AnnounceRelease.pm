@@ -23,7 +23,7 @@ has channel => (
 sub after_release {
 	my ($self, $dist) = @_;
 
-	require DDG::Util::Chat;
+	eval 'require DDG::Util::Chat';
 
 	unless($dist =~ /(DDG-(.+?)Bundle-OpenSourceDuckDuckGo-(.+?))\.tar\.gz/){
 		$self->log_fatal(["Failed to parse distribution name $dist"]);
