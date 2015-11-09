@@ -33,14 +33,23 @@ sub after_release {
     }
     my ($dir, $type, $ver) = ($1, $2, $3);
 
-    my $msg = "$type v$ver was successfully released and contains the following changes:<br />";
+    my $msg = "$type v$ver was successfully released";
 
     my $tgz = Archive::Tar->new($dist);
     my $yaml = $tgz->get_content("$dir/" . $self->changelog);
 
     my $cl = Load($yaml);
+    my %changes;
     while(my ($id, $status) = each %$cl){
-        $msg .= qq{<br />- <a href="https://duck.co/ia/view/$id">$id</a> was $status};
+        push @{$changes{ucfirst $status}}, qq{- <a href="https://duck.co/ia/view/$id">$id</a>};
+    }
+    if(%changes){
+        $msg .= ' and contains the following changes:';
+        for my $status (qw(Added Modified Delete)){
+            if(exists $changes{$status}){
+                $msg .= "<br /><br />$status<br /><br />" . join('<br />', sort @{$changes{$status}});
+            }
+        }
     }
 
     DDG::Util::Chat::send_chat_message($self->channel, $msg, 'dzil');
@@ -49,4 +58,3 @@ sub after_release {
 __PACKAGE__->meta->make_immutable;
 
 1;
-
