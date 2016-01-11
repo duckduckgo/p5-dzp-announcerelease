@@ -45,7 +45,7 @@ sub after_release {
     }
     if(%changes){
         $msg .= ' and contains the following changes:';
-        for my $status (qw(Added Modified Delete)){
+        for my $status (qw(Added Modified Deleted)){
             if(exists $changes{$status}){
                 $msg .= "<br /><br />$status<br /><br />" . join('<br />', sort @{$changes{$status}});
             }
